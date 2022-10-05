@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 public class WorkdayType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Setter
