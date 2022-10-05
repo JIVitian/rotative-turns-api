@@ -11,13 +11,14 @@ import javax.persistence.*;
 @Component
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "user_generator", initialValue = 100)
     private Long id;
+
+    @Setter
+    @Column(nullable = false)
     private String name;
 }

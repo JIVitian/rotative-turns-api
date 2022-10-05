@@ -16,17 +16,17 @@ public class EmployeeController {
 
     @GetMapping("all")
     public ResponseEntity<List<EmployeeDTO>> getAll(){
-        return ResponseEntity.ok(this.employeeService.getAll());
+        return ResponseEntity.ok(employeeService.getAll());
     }
 
     @GetMapping("{id}")
     public ResponseEntity<EmployeeDTO> getById(@PathVariable(name = "id", required = false) Long id) {
-        return ResponseEntity.ok(this.employeeService.getById(id));
+        return ResponseEntity.ok(employeeService.getById(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<EmployeeDTO> crearEmpleado(@RequestBody EmployeeDTO employee){
-        EmployeeDTO newEmployee = this.employeeService.createEmployee(employee);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employee){
+        EmployeeDTO newEmployee = employeeService.createEmployee(employee);
 
         return ResponseEntity.ok(newEmployee);
     }

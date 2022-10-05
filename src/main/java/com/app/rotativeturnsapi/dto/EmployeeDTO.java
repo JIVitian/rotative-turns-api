@@ -1,23 +1,24 @@
 package com.app.rotativeturnsapi.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class EmployeeDTO implements Serializable {
 
     private Long id;
+    @NotEmpty
+    @Size(min = 2, message = "employee name should have at least 2 characters")
     private String name;
 
     public EmployeeDTO(Long id, String name) {
         super();
-        this.id = id;
-        this.name = name;
+        id = id;
+        name = name;
     }
 }

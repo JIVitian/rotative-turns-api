@@ -2,48 +2,42 @@ package com.app.rotativeturnsapi.services.employees;
 
 import com.app.rotativeturnsapi.dto.EmployeeDTO;
 import com.app.rotativeturnsapi.entities.Employee;
+import com.app.rotativeturnsapi.mappers.EmployeeMapper;
 import com.app.rotativeturnsapi.repositories.EmployeeRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
-    @Autowired
-    private EmployeeRepository repository;
-
-    @Autowired
-    private Employee employee;
-
-    ModelMapper modelMapper = new ModelMapper();
+    private final EmployeeRepository repository;
+    private final EmployeeMapper mapper;
 
     public List<EmployeeDTO> getAll() {
-        List<Employee> employees = this.repository.findAll();
+        List<Employee> employees = repository.findAll();
 
         return employees
                 .stream()
-                .map(employee -> this.modelMapper.map(employee, EmployeeDTO.class))
+                .map(employee -> mapper.entityToDTO(employee))
                 .collect(Collectors.toList());
     }
 
     public EmployeeDTO getById(Long id) {
-        Optional<Employee> employee = this.repository.findById(id);
-
-        if(!employee.isPresent()) {
-            return null;
-        }
-
-        return this.modelMapper.map(employee.get(), EmployeeDTO.class);
+        return mapper.entityToDTO(repository.findById(id).get());
     }
 
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
-        this.employee = this.modelMapper.map(employeeDTO, Employee.class);
+        Employee employee = mapper.DTOToEntity(employeeDTO);
 
-        return this.modelMapper.map(this.repository.save(this.employee), EmployeeDTO.class);
+        return mapper.entityToDTO(repository.save(employee));
     }
 
 }
