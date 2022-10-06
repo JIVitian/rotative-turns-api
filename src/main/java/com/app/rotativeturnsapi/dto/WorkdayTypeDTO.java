@@ -13,7 +13,7 @@ public class WorkdayTypeDTO implements Serializable {
 
     public WorkdayTypeDTO(Integer id, String name) {
         super();
-        id = id;
-        name = name;
+        this.id = id;
+        this.name = name;
     }
 }

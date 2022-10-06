@@ -1,16 +1,12 @@
 package com.app.rotativeturnsapi.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Component
 @Entity
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
@@ -18,7 +14,6 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private String name;
 }
